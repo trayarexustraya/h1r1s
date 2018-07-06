@@ -20,6 +20,8 @@ namespace Human_Resource_Information_System
 
         private GlobalClass gc;
         private GlobalMethod gm;
+        public String papersize;
+
         public rpt_payroll_summary()
         {
             gc = new GlobalClass();
@@ -76,19 +78,22 @@ namespace Human_Resource_Information_System
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
+            papersize = "";
             if (cbo_payollperiod.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a payroll period.");
                 cbo_payollperiod.DroppedDown = true;
                 return;
             }
-            
+
+            //page_size page_size = new page_size();
+            //page_size.ShowDialog();
 
             btn_submit.Enabled = false;
             pic_loading.Visible = true;
             bgworker.RunWorkerAsync();
         }
-
+        
         private void bgworker_DoWork(object sender, DoWorkEventArgs e)
         {
             String query = "",dept_query = "",deptid = "", empid = "", date_from = "", date_to = "", pay_code = "", table = "hr_rpt_files", filename = "", code = "", col = "", val = "", date_in = "";
@@ -134,11 +139,11 @@ namespace Human_Resource_Information_System
                 filename = RandomString(5) + "_" + DateTime.Now.ToString("yyyy-MM-dd");
                 filename += ".pdf";
 
-
+                Document document = null;
                 //System.IO.FileStream fs = new FileStream("\\\\RIGHTAPPS\\RightApps\\Eastland\\payroll_reports\\payroll_summary\\" + filename, FileMode.Create);
                 System.IO.FileStream fs = new FileStream(fileloc_dtr + "\\ViewController\\RPT\\Payroll\\payroll_summary\\" + filename, FileMode.Create);
-
-                Document document = new Document(PageSize.LEGAL.Rotate());
+               
+                document = new Document(PageSize.LETTER.Rotate());
 
                 PdfWriter.GetInstance(document, fs);
                 document.Open();
@@ -326,6 +331,8 @@ namespace Human_Resource_Information_System
                             try { phic_ee = Convert.ToDouble(phic.Rows[0]["emp_ee"].ToString()); } catch { phic_ee = 0.00; }
 
                             gross_pay -= phic_ee + phic_er;
+
+
 
                             philhealth_table.AddCell(new PdfPCell(new Paragraph("ER", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7f, iTextSharp.text.Font.NORMAL))));
                             philhealth_table.AddCell(new PdfPCell(new Paragraph(phic_er.ToString("N", new CultureInfo("en-US")), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7f, iTextSharp.text.Font.NORMAL))));

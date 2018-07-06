@@ -522,6 +522,12 @@
     <Compile Include="ViewController\RPT\Payroll\hdmf_summary.Designer.cs">
       <DependentUpon>hdmf_summary.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewController\RPT\Payroll\page_size.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewController\RPT\Payroll\page_size.Designer.cs">
+      <DependentUpon>page_size.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewController\RPT\Payroll\rpt_loan_summary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -932,6 +938,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ViewController\RPT\Payroll\hdmf_summary.resx">
       <DependentUpon>hdmf_summary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewController\RPT\Payroll\page_size.resx">
+      <DependentUpon>page_size.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewController\RPT\Payroll\rpt_loan_summary.resx">
       <DependentUpon>rpt_loan_summary.cs</DependentUpon>
