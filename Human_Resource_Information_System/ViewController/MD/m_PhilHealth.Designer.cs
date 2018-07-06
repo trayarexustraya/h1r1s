@@ -54,24 +54,20 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.txt_emp_ee = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_emp_er = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_salary_base = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txt_bracket2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txt_bracket1 = new System.Windows.Forms.TextBox();
             this.txt_code = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txt_percent = new System.Windows.Forms.TextBox();
             this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bracket1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bracket2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.salary_base = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.emp_ee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.emp_er = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -341,8 +337,7 @@
             this.dgv_list.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_list.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.code,
-            this.bracket1,
-            this.bracket2,
+            this.percent,
             this.salary_base,
             this.emp_ee,
             this.emp_er});
@@ -361,18 +356,15 @@
             this.tpg_info.Controls.Add(this.label12);
             this.tpg_info.Controls.Add(this.label11);
             this.tpg_info.Controls.Add(this.label9);
-            this.tpg_info.Controls.Add(this.label7);
             this.tpg_info.Controls.Add(this.txt_emp_ee);
             this.tpg_info.Controls.Add(this.label6);
             this.tpg_info.Controls.Add(this.txt_emp_er);
             this.tpg_info.Controls.Add(this.label5);
             this.tpg_info.Controls.Add(this.txt_salary_base);
             this.tpg_info.Controls.Add(this.label3);
-            this.tpg_info.Controls.Add(this.txt_bracket2);
-            this.tpg_info.Controls.Add(this.label2);
             this.tpg_info.Controls.Add(this.label1);
             this.tpg_info.Controls.Add(this.label4);
-            this.tpg_info.Controls.Add(this.txt_bracket1);
+            this.tpg_info.Controls.Add(this.txt_percent);
             this.tpg_info.Controls.Add(this.txt_code);
             this.tpg_info.Controls.Add(this.label8);
             this.tpg_info.Controls.Add(this.label10);
@@ -388,7 +380,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(335, 143);
+            this.label12.Location = new System.Drawing.Point(335, 117);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(16, 20);
             this.label12.TabIndex = 59;
@@ -399,7 +391,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(335, 116);
+            this.label11.Location = new System.Drawing.Point(335, 90);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(16, 20);
             this.label11.TabIndex = 58;
@@ -410,27 +402,16 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(335, 88);
+            this.label9.Location = new System.Drawing.Point(335, 62);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(16, 20);
             this.label9.TabIndex = 57;
             this.label9.Text = "*";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(335, 62);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(16, 20);
-            this.label7.TabIndex = 56;
-            this.label7.Text = "*";
-            // 
             // txt_emp_ee
             // 
             this.txt_emp_ee.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_emp_ee.Location = new System.Drawing.Point(204, 143);
+            this.txt_emp_ee.Location = new System.Drawing.Point(204, 117);
             this.txt_emp_ee.Name = "txt_emp_ee";
             this.txt_emp_ee.Size = new System.Drawing.Size(108, 21);
             this.txt_emp_ee.TabIndex = 55;
@@ -440,7 +421,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 145);
+            this.label6.Location = new System.Drawing.Point(10, 119);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 15);
             this.label6.TabIndex = 54;
@@ -449,7 +430,7 @@
             // txt_emp_er
             // 
             this.txt_emp_er.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_emp_er.Location = new System.Drawing.Point(204, 116);
+            this.txt_emp_er.Location = new System.Drawing.Point(204, 90);
             this.txt_emp_er.Name = "txt_emp_er";
             this.txt_emp_er.Size = new System.Drawing.Size(108, 21);
             this.txt_emp_er.TabIndex = 53;
@@ -459,7 +440,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 118);
+            this.label5.Location = new System.Drawing.Point(10, 92);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(108, 15);
             this.label5.TabIndex = 52;
@@ -468,52 +449,22 @@
             // txt_salary_base
             // 
             this.txt_salary_base.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_salary_base.Location = new System.Drawing.Point(204, 89);
+            this.txt_salary_base.Location = new System.Drawing.Point(204, 63);
             this.txt_salary_base.Name = "txt_salary_base";
             this.txt_salary_base.Size = new System.Drawing.Size(108, 21);
             this.txt_salary_base.TabIndex = 51;
             this.txt_salary_base.Text = "0.00";
             this.txt_salary_base.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txt_salary_base.TextChanged += new System.EventHandler(this.txt_salary_base_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 91);
+            this.label3.Location = new System.Drawing.Point(10, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 15);
             this.label3.TabIndex = 50;
             this.label3.Text = "Salary Base";
-            // 
-            // txt_bracket2
-            // 
-            this.txt_bracket2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_bracket2.Location = new System.Drawing.Point(204, 62);
-            this.txt_bracket2.Name = "txt_bracket2";
-            this.txt_bracket2.Size = new System.Drawing.Size(108, 21);
-            this.txt_bracket2.TabIndex = 49;
-            this.txt_bracket2.Text = "0.00";
-            this.txt_bracket2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 15);
-            this.label2.TabIndex = 48;
-            this.label2.Text = "Bracket 2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(335, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 20);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "*";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label4
             // 
@@ -525,16 +476,6 @@
             this.label4.Size = new System.Drawing.Size(16, 20);
             this.label4.TabIndex = 46;
             this.label4.Text = "*";
-            // 
-            // txt_bracket1
-            // 
-            this.txt_bracket1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_bracket1.Location = new System.Drawing.Point(204, 35);
-            this.txt_bracket1.Name = "txt_bracket1";
-            this.txt_bracket1.Size = new System.Drawing.Size(108, 21);
-            this.txt_bracket1.TabIndex = 36;
-            this.txt_bracket1.Text = "0.00";
-            this.txt_bracket1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txt_code
             // 
@@ -559,9 +500,32 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(10, 37);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 15);
+            this.label10.Size = new System.Drawing.Size(49, 15);
             this.label10.TabIndex = 33;
-            this.label10.Text = "Bracket 1";
+            this.label10.Text = "Percent";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(335, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 20);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "*";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // txt_percent
+            // 
+            this.txt_percent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_percent.Location = new System.Drawing.Point(204, 35);
+            this.txt_percent.Name = "txt_percent";
+            this.txt_percent.Size = new System.Drawing.Size(108, 21);
+            this.txt_percent.TabIndex = 36;
+            this.txt_percent.Text = "0.00";
+            this.txt_percent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txt_percent.TextChanged += new System.EventHandler(this.txt_percent_TextChanged);
             // 
             // code
             // 
@@ -570,19 +534,12 @@
             this.code.Name = "code";
             this.code.ReadOnly = true;
             // 
-            // bracket1
+            // percent
             // 
-            this.bracket1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.bracket1.HeaderText = "BRACKET1";
-            this.bracket1.Name = "bracket1";
-            this.bracket1.ReadOnly = true;
-            // 
-            // bracket2
-            // 
-            this.bracket2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.bracket2.HeaderText = "BRACKET2";
-            this.bracket2.Name = "bracket2";
-            this.bracket2.ReadOnly = true;
+            this.percent.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.percent.HeaderText = "PERCENT";
+            this.percent.Name = "percent";
+            this.percent.ReadOnly = true;
             // 
             // salary_base
             // 
@@ -664,27 +621,23 @@
         private System.Windows.Forms.TabPage tpg_list;
         private System.Windows.Forms.DataGridView dgv_list;
         private System.Windows.Forms.TabPage tpg_info;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txt_bracket1;
         private System.Windows.Forms.TextBox txt_code;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txt_emp_ee;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_emp_er;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_salary_base;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txt_bracket2;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txt_percent;
+        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridViewTextBoxColumn code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bracket1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bracket2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn percent;
         private System.Windows.Forms.DataGridViewTextBoxColumn salary_base;
         private System.Windows.Forms.DataGridViewTextBoxColumn emp_ee;
         private System.Windows.Forms.DataGridViewTextBoxColumn emp_er;

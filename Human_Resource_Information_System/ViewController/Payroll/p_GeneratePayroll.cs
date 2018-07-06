@@ -34,18 +34,18 @@ namespace Human_Resource_Information_System
         {
             String table = "hr_emp_payroll", col = "", val = "", emp_pay_code = "", sss = "", philhealth = "", pagibig = "", other_earnings = "", other_deductions = "";
             String summ_code = "", empid = "", days_worked = "", absences = "", late = "", undertime = "", overtime = "", ppid = "";
-            Double total_late = 0.00, total_under_time = 0.00, total_overtime = 0.00, legal_hol_ot = 0.00, special_hol_ot=0.00,dayoff_ot_total = 0.00;
+            Double total_late = 0.00, total_under_time = 0.00, total_overtime = 0.00, legal_hol_ot = 0.00, special_hol_ot=0.00,dayoff_ot_total = 0.00,w_tax = 0.00;
             DataTable dtr = get_generated_dtr();
             Boolean success = false;
             int bar = 1;
             
-            DataTable payroll =  db.QueryBySQLCode("SELECT DISTINCT(dtr.ppid), pp.d_sss_c,pp.d_philhealth,pp.d_pagibig from rssys.hr_dtr_sum_employees dtr LEFT JOIN rssys.hr_payrollpariod pp on dtr.ppid = pp.pay_code WHERE dtr.isgenerated = '0'");
+            DataTable payroll =  db.QueryBySQLCode("SELECT DISTINCT(dtr.ppid), pp.d_w_tax,pp.d_sss_c,pp.d_philhealth,pp.d_pagibig from rssys.hr_dtr_sum_employees dtr LEFT JOIN rssys.hr_payrollpariod pp on dtr.ppid = pp.pay_code WHERE dtr.isgenerated = '0'");
 
             DataTable holidays = null;
             if (dtr.Rows.Count > 0)
             {
-                //try
-                //{
+                try
+                {
                     pbar.Invoke(new Action(() =>
                     {
                         pbar.Maximum = dtr.Rows.Count;
@@ -92,7 +92,7 @@ namespace Human_Resource_Information_System
                             total_overtime = 0.00;
                         }
                         
-                        DataTable emp_payrate = db.QueryBySQLCode("SELECT pay_rate FROM rssys.hr_employee WHERE empid = '" + empid + "'");
+                        DataTable emp_payrate = db.QueryBySQLCode("SELECT pay_rate,w_tax FROM rssys.hr_employee WHERE empid = '" + empid + "'");
                         
                         if (payroll.Rows[0]["d_sss_c"].ToString() == "Y")
                         {
@@ -108,13 +108,18 @@ namespace Human_Resource_Information_System
                         {
                             pagibig = get_pagibig_deduction(emp_payrate.Rows[0]["pay_rate"].ToString());
                         }
+                        if(payroll.Rows[0]["d_w_tax"].ToString() == "Y")
+                        {
+                            try { w_tax = Convert.ToDouble(emp_payrate.Rows[0]["w_tax"].ToString()); } catch { w_tax = 0.00; }
+                        }
+
 
                         other_earnings = get_other_earnings(empid, ppid);
                         other_deductions = get_other_deductions(empid, ppid);
                         
                         emp_pay_code = db.get_pk("emp_pay_code");
-                        col = "emp_pay_code,empid,days_worked,abcences,late,undertime,overtime,regular_ot_a,ppid,legal_hol_ot_a,special_hol_ot_a,dayoff_ot_a,sss_cont_a,philhealth_cont_a,pag_ibig_a,other_earnings,other_deduction";
-                        val = "'" + emp_pay_code + "','" + empid + "','" + days_worked + "','" + absences + "','" + total_late.ToString("0.00") + "','" + total_under_time.ToString("0.00") + "','" + total_overtime.ToString("0.00") + "','" + total_overtime.ToString("0.00") + "','" + ppid + "','" +legal_hol_ot.ToString("0.00") + "','" + special_hol_ot.ToString("0.00") +"','" + dayoff_ot_total.ToString("0.00") + "','" + sss + "','" + philhealth + "','" + pagibig + "','" + other_earnings + "','" + other_deductions + "'";
+                        col = "emp_pay_code,empid,days_worked,abcences,late,undertime,overtime,regular_ot_a,ppid,legal_hol_ot_a,special_hol_ot_a,dayoff_ot_a,sss_cont_a,philhealth_cont_a,pag_ibig_a,other_earnings,other_deduction,w_tax";
+                        val = "'" + emp_pay_code + "','" + empid + "','" + days_worked + "','" + absences + "','" + total_late.ToString("0.00") + "','" + total_under_time.ToString("0.00") + "','" + total_overtime.ToString("0.00") + "','" + total_overtime.ToString("0.00") + "','" + ppid + "','" +legal_hol_ot.ToString("0.00") + "','" + special_hol_ot.ToString("0.00") +"','" + dayoff_ot_total.ToString("0.00") + "','" + sss + "','" + philhealth + "','" + pagibig + "','" + other_earnings + "','" + other_deductions + "','" + w_tax.ToString("0.00") +"'";
                         
                         if (db.InsertOnTable(table, col, val))
                         {
@@ -134,11 +139,11 @@ namespace Human_Resource_Information_System
                         String period = get_payrol_period(ppid);
                         MessageBox.Show("New payroll was generated From " + period + " .");
                     }
-               // }
-               // catch(Exception ex)
-               // {
-               //     MessageBox.Show("Payroll cannot be generated. Something went wrong. " + ex.Message);
-               // }
+               }
+               catch(Exception ex)
+               {
+                   MessageBox.Show("Payroll cannot be generated. Something went wrong. " + ex.Message);
+               }
 
             }
             else

@@ -259,7 +259,7 @@ namespace Human_Resource_Information_System
 
                         try
                         {
-                            System.Diagnostics.Process.Start("AcroRd3d2.exe", sys_dir + dtr_filename);
+                            System.Diagnostics.Process.Start("iexplore.exe", sys_dir + dtr_filename);
 
                         }
                         catch (Exception ex)

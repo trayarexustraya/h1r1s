@@ -239,9 +239,20 @@ namespace Human_Resource_Information_System
                         days = 365;
                     }
 
-                    daily_rate = (pay_rate * 12) / 314; //pay_rate = monthly rate
-                    hour_rate = (daily_rate / 8);
-                    minute_rate = (hour_rate / 60);
+                    if (rate_type == "M" || rate_type == "S")
+                    {
+                        daily_rate = (pay_rate * 12) / 314; //pay_rate = monthly rate
+                        hour_rate = (daily_rate / 8);
+                        minute_rate = (hour_rate / 60);
+                    }
+                   
+                    else if(rate_type == "D")
+                    {
+                        daily_rate = pay_rate;
+                        hour_rate = daily_rate / 8;
+                        minute_rate = hour_rate / 60;
+                    }
+                    
 
                     txt_min_rate.Text = minute_rate.ToString("N", new CultureInfo("en-US"));
                     txt_hourly_rate.Text = hour_rate.ToString("N", new CultureInfo("en-US"));
@@ -253,7 +264,7 @@ namespace Human_Resource_Information_System
                     txt_reg_ot_a.Text = (payroll.Rows[0]["regular_ot_a"] ?? "0.00").ToString();
                     // reg_ot_a = Convert.ToDouble(txt_reg_ot_a.Text);
                    
-                    if (payroll.Rows[0]["ratecode"].ToString() == "M")
+                    if (rate_type == "M")
                     {
                         if (payroll.Rows[0]["fixed_rate"].ToString() == "1")
                         {
@@ -293,7 +304,7 @@ namespace Human_Resource_Information_System
                             }
                         }
                     }
-                    else if (payroll.Rows[0]["ratecode"].ToString() == "D")
+                    else if (rate_type == "S")
                     {
                         if (payroll.Rows[0]["fixed_rate"].ToString() == "1")
                         {
@@ -307,30 +318,39 @@ namespace Human_Resource_Information_System
                             txt_reg_ot_b.Text = reg_ot_b_total.ToString("0.00");
                             txt_basic_pay.Text = basic_pay.ToString("0.00");
                         }
+                        else
+                        {
+                            try
+                            {
+                                days_worked = Convert.ToInt32(txt_dayswoked.Text);
+                                if (days_worked > 0)
+                                {
+                                    txt_regpay.Text = (Convert.ToDouble(txt_dayswoked.Text) * daily_rate).ToString("0.00");
+                                }
+                                else
+                                {
+                                    txt_regpay.Text = "0.00";
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+                                txt_regpay.Text = "0.00";
+                            }
+                        }
                     }
-                    else if (payroll.Rows[0]["ratecode"].ToString() == "W")
+                    else if (rate_type == "D")
                     {
                         try
                         {
-                            int year = DateTime.Now.Year;
-                            int week_days = 0;
-                            if (DateTime.IsLeapYear(year))
-                            {
-                                if (count_dayoff == 2)
-                                {
-                                    week_days = 261;
-                                }
-                            }
-                            else
-                            {
-                                week_days = 260;
-                            }
-                            daily_rate = (pay_rate * 12) / week_days;
-                            txt_regpay.Text = (Convert.ToDouble(txt_dayswoked.Text) * daily_rate).ToString("0.00");
+                            late_amt = Convert.ToDouble(txt_late_ut_amt.Text);
+                            basic_pay = (Convert.ToDouble(txt_pay_rate.Text) * Convert.ToDouble(txt_dayswoked.Text)) - late_amt;
+                            txt_basic_pay.Text = basic_pay.ToString("0.00");
+                            
                         }
-                        catch (Exception ex)
+                        catch(Exception ex)
                         {
-                            txt_regpay.Text = "0.00";
+                            txt_basic_pay.Text = "0.00";
                         }
                     }
 
@@ -684,7 +704,7 @@ namespace Human_Resource_Information_System
         }
         void calculate_gross()
         {
-            Double gross = gm.toNormalDoubleFormat(txt_basic_pay.Text) + gm.toNormalDoubleFormat(txt_reg_ot_b.Text) + gm.toNormalDoubleFormat(txt_dayoffot_b.Text) + gm.toNormalDoubleFormat(txt_legalhol_ot_b.Text) + gm.toNormalDoubleFormat(txt_specialhol_ot_b.Text) + gm.toNormalDoubleFormat(txt_legalhol_pay_b.Text) + gm.toNormalDoubleFormat(txt_specialhol_pay_b.Text) + gm.toNormalDoubleFormat(txt_night_diff_b.Text) + gm.toNormalDoubleFormat(txt_other_earning.Text) + gm.toNormalDoubleFormat(txt_vl_b.Text) + gm.toNormalDoubleFormat(txt_sl_b.Text) + gm.toNormalDoubleFormat(txt_pl_b.Text) + gm.toNormalDoubleFormat(txt_legalhol_pay_b.Text) + gm.toNormalDoubleFormat(txt_specialhol_pay_b.Text);
+            Double gross = gm.toNormalDoubleFormat(txt_basic_pay.Text) + gm.toNormalDoubleFormat(txt_reg_ot_b.Text) + gm.toNormalDoubleFormat(txt_dayoffot_b.Text) + gm.toNormalDoubleFormat(txt_legalhol_ot_b.Text) + gm.toNormalDoubleFormat(txt_specialhol_ot_b.Text) + gm.toNormalDoubleFormat(txt_legalhol_pay_b.Text) + gm.toNormalDoubleFormat(txt_specialhol_pay_b.Text) + gm.toNormalDoubleFormat(txt_night_diff_b.Text) + gm.toNormalDoubleFormat(txt_other_earning.Text) + gm.toNormalDoubleFormat(txt_vl_b.Text) + gm.toNormalDoubleFormat(txt_sl_b.Text) + gm.toNormalDoubleFormat(txt_pl_b.Text);
               
             lbl_total_gross.Text = gm.toAccountingFormat(gross); 
             
@@ -928,6 +948,11 @@ namespace Human_Resource_Information_System
             {
                 calculate_net();
             }
+        }
+
+        private void txt_late_ut_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void txt_wtax_TextChanged(object sender, EventArgs e)

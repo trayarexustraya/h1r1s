@@ -89,7 +89,7 @@ namespace Human_Resource_Information_System
             String notifyadd = null, id = "";
             String table = "hr_philhealth";
 
-            String code = "", bracket1 = "", bracket2 = "", salary_base = "", emp_er = "", emp_ee = "";
+            String code = "", salary_base = "", emp_er = "", emp_ee = "",percent ="";
 
             if (String.IsNullOrEmpty(txt_code.Text))
             {
@@ -98,16 +98,15 @@ namespace Human_Resource_Information_System
             }
 
             code = txt_code.Text;
-            bracket1 = txt_bracket1.Text;
-            bracket2 = txt_bracket2.Text;
+            percent = txt_percent.Text;
             salary_base = txt_salary_base.Text;
             emp_er = txt_emp_er.Text;
             emp_ee = txt_emp_ee.Text;
 
             if(isnew)
             {
-                col = "code,bracket1,bracket2,salary_base,emp_er,emp_ee";
-                val = "" + db.str_E(code) + ",'" + bracket1 + "','" + bracket2 + "','" + salary_base + "','" + emp_er + "','" + emp_ee + "'";
+                col = "code,salary_base,emp_er,emp_ee,percent,cancel";
+                val = "" + db.str_E(code) + ",'" + salary_base + "','" + emp_er + "','" + emp_ee + "','" + percent + "','N'";
 
                 db.DeleteOnTable(table, "code=" + db.str_E(code) + " AND cancel='Y'");
                 if (db.InsertOnTable(table, col, val))
@@ -123,7 +122,7 @@ namespace Human_Resource_Information_System
             }
             else
             {
-                col = "bracket1='" + bracket1 + "',bracket2='" + bracket2 + "',salary_base='" + salary_base + "',emp_er='" + emp_er + "',emp_ee='" + emp_ee + "'";
+                col = "percent = '" + percent + "',salary_base='" + salary_base + "',emp_er='" + emp_er + "',emp_ee='" + emp_ee + "'";
 
                 if (db.UpdateOnTable(table, col, "code=" + db.str_E(code) + ""))
                 {
@@ -147,8 +146,7 @@ namespace Human_Resource_Information_System
         private void frm_clear()
         {
             txt_code.Text = "";
-            txt_bracket1.Text = "0.00";
-            txt_bracket2.Text = "0.00";
+            txt_percent.Text = "0.00";
             txt_salary_base.Text = "0.00";
             txt_emp_ee.Text = "0.00";
             txt_emp_er.Text = "0.00";
@@ -174,8 +172,7 @@ namespace Human_Resource_Information_System
                 DataGridViewRow row = dgv_list.Rows[i];
                 
                 row.Cells["code"].Value = dt.Rows[r]["code"].ToString();
-                row.Cells["bracket1"].Value = dt.Rows[r]["bracket1"].ToString();
-                row.Cells["bracket2"].Value = dt.Rows[r]["bracket2"].ToString();
+                row.Cells["percent"].Value = dt.Rows[r]["percent"].ToString();
                 row.Cells["salary_base"].Value = dt.Rows[r]["salary_base"].ToString();
                 row.Cells["emp_er"].Value = dt.Rows[r]["emp_er"].ToString();
                 row.Cells["emp_ee"].Value = dt.Rows[r]["emp_ee"].ToString();
@@ -201,8 +198,7 @@ namespace Human_Resource_Information_System
                     try
                     {
                         txt_code.Text = id;
-                        txt_bracket1.Text = dgv_list["bracket1", r].Value.ToString();
-                        txt_bracket2.Text = dgv_list["bracket2", r].Value.ToString();
+                        txt_percent.Text = dgv_list["percent",r].Value.ToString();
                         txt_salary_base.Text = dgv_list["salary_base", r].Value.ToString();
                         txt_emp_ee.Text = dgv_list["emp_ee", r].Value.ToString();
                         txt_emp_er.Text = dgv_list["emp_er", r].Value.ToString();
@@ -270,6 +266,44 @@ namespace Human_Resource_Information_System
             frm.ShowDialog();
         }
 
+        private void txt_percent_TextChanged(object sender, EventArgs e)
+        {
+            compute_ee_er_share();
+        }
 
+        private void txt_salary_base_TextChanged(object sender, EventArgs e)
+        {
+            compute_ee_er_share();
+        }
+        public void compute_ee_er_share()
+        {
+
+            try
+            {
+                Double result = 0.00;
+                Double pay_rate = Convert.ToDouble(txt_salary_base.Text);
+
+                if(txt_percent.Text != "")
+                {
+                    result = (2.75 / 100) * pay_rate;
+                    txt_emp_ee.Text = (result / 2).ToString();
+                    txt_emp_er.Text = (result / 2).ToString();
+                }
+                else
+                {
+                    txt_emp_er.Text = "";
+                    txt_emp_ee.Text = "";
+                }
+                
+            }
+            catch
+            {
+                txt_emp_er.Text = "";
+                txt_emp_ee.Text = "";
+            }
+            
+        }
+
+        
     }
 }

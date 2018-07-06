@@ -271,7 +271,7 @@ namespace Human_Resource_Information_System
                         
                         try
                         {
-                            System.Diagnostics.Process.Start("chrome.exe", sys_dir + dtr_filename);
+                            System.Diagnostics.Process.Start("iexplore.exe", sys_dir + dtr_filename);
                         }
                         catch(Exception ex)
                         {

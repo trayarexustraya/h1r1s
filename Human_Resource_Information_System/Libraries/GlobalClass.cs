@@ -1543,7 +1543,21 @@ namespace Human_Resource_Information_System
             }
             catch (Exception) { }
         }
+        public void load_phic(ComboBox cbo)
+        {
+            try
+            {
+                thisDatabase db = new thisDatabase();
 
+                cbo.DataSource = db.QueryBySQLCode("SELECT code,salary_base FROM rssys.hr_philhealth WHERE cancel = 'N'");
+                cbo.DisplayMember = "salary_base";
+                cbo.ValueMember = "code";
+                cbo.SelectedIndex = -1;
+
+                cbo.DropDownWidth = get_cbo_dropdownwidth(cbo);
+            }
+            catch (Exception) { }
+        }
 
         // 10/27
         public void load_shift_schedule(ComboBox cbo)
